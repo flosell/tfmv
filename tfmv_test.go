@@ -191,7 +191,7 @@ func TestChangesAfterApplyAndMove(t *testing.T) {
 
 func TestMoveStatements_Simple(t *testing.T) {
 	plan := getTestPlan(t, "test/simple")
-	moves, err := getMoveStatements(plan)
+	moves, err := getMoveStatements(plan, "first-matching")
 	assert.NoError(t, err)
 	assert.Empty(t, moves)
 }
@@ -212,7 +212,7 @@ func TestMoveStatements_ApplyAndMove(t *testing.T) {
 	}()
 
 	plan := getTestPlan(t, rootModule)
-	moves, err := getMoveStatements(plan)
+	moves, err := getMoveStatements(plan, "first-matching")
 	assert.NoError(t, err)
 	expected := []string{"terraform state mv tls_private_key.example module.empty_mod.tls_private_key.example"}
 	assert.Equal(t, expected, moves)
